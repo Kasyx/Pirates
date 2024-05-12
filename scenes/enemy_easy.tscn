@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://btnm18mk1tp53"]
+
+[ext_resource type="Texture2D" uid="uid://cy4c5y0161yvb" path="res://assets/PNG/Default size/Ships/ship (4).png" id="1_s22vt"]
+[ext_resource type="Script" path="res://scripts/enemy_easy.gd" id="1_y3lcn"]
+[ext_resource type="Texture2D" uid="uid://coppnim2et6bk" path="res://assets/PNG/Default size/Ships/ship (10).png" id="3_h8ale"]
+[ext_resource type="Texture2D" uid="uid://1alu50kuxspy" path="res://assets/PNG/Default size/Ships/ship (16).png" id="4_bfbf5"]
+[ext_resource type="PackedScene" uid="uid://dm1wrxyw47fox" path="res://scenes/cannon.tscn" id="5_y66yh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5apcq"]
+radius = 25.0
+height = 128.0
+
+[node name="EnemyEasy" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 14
+mass = 10.0
+gravity_scale = 0.0
+script = ExtResource("1_y3lcn")
+
+[node name="Cannon" parent="." instance=ExtResource("5_y66yh")]
+position = Vector2(9, 16)
+rotation = 1.5708
+
+[node name="Cannon2" parent="." instance=ExtResource("5_y66yh")]
+position = Vector2(-13, 16)
+rotation = 1.5708
+
+[node name="Cannon3" parent="." instance=ExtResource("5_y66yh")]
+position = Vector2(9, -14.5)
+rotation = -1.5708
+
+[node name="Cannon4" parent="." instance=ExtResource("5_y66yh")]
+position = Vector2(-13, -14.5)
+rotation = -1.5708
+
+[node name="HullSprite" type="Sprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("1_s22vt")
+
+[node name="HullSpriteStage2" type="Sprite2D" parent="."]
+visible = false
+rotation = 4.71239
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("3_h8ale")
+
+[node name="HullSpriteStage3" type="Sprite2D" parent="."]
+visible = false
+rotation = 4.71239
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("4_bfbf5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5apcq")
+
+[node name="SalvoTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="SalvoTimer" to="." method="_on_salvo_timer_timeout"]

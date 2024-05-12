@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm1wrxyw47fox"]
+
+[ext_resource type="Texture2D" uid="uid://di2ondv4oebxh" path="res://assets/PNG/Retina/Ship parts/cannonMobile.png" id="1_22gtt"]
+[ext_resource type="Script" path="res://scripts/cannon.gd" id="2_16x4v"]
+
+[node name="Cannon" type="Sprite2D"]
+texture = ExtResource("1_22gtt")
+script = ExtResource("2_16x4v")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(17, 0)

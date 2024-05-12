@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://dlobnavfc5cbe"]
+
+[ext_resource type="Texture2D" uid="uid://cabrmlsvggnql" path="res://assets/PNG/Default size/Ships/ship (1).png" id="1_86885"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_b5epi"]
+[ext_resource type="Texture2D" uid="uid://bvilfyb70pmyy" path="res://assets/PNG/Default size/Ship parts/hullSmall (1).png" id="3_0vkgr"]
+[ext_resource type="Texture2D" uid="uid://bem2tjyc6s1en" path="res://assets/PNG/Default size/Ship parts/sailLarge (7).png" id="4_b6kb7"]
+[ext_resource type="Texture2D" uid="uid://p0pdaanaq6s" path="res://assets/PNG/Default size/Ship parts/nest.png" id="5_4nqyr"]
+[ext_resource type="Texture2D" uid="uid://drfyd0lx73h4o" path="res://assets/PNG/Retina/Ship parts/flag (1).png" id="6_w0j5q"]
+[ext_resource type="PackedScene" uid="uid://dm1wrxyw47fox" path="res://scenes/cannon.tscn" id="8_omlbu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m5rus"]
+radius = 28.0
+height = 150.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 9
+platform_wall_layers = 1
+script = ExtResource("1_b5epi")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.6, 0.6)
+
+[node name="Hull" type="Sprite2D" parent="."]
+position = Vector2(4, 3.55271e-15)
+rotation = 4.71239
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_0vkgr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_m5rus")
+
+[node name="CannonsLeft" type="Node2D" parent="."]
+
+[node name="CannonLeft1" parent="CannonsLeft" instance=ExtResource("8_omlbu")]
+position = Vector2(-26, -18.5)
+rotation = 4.71239
+
+[node name="CannonLeft2" parent="CannonsLeft" instance=ExtResource("8_omlbu")]
+position = Vector2(-1, -18.5)
+rotation = 4.71239
+
+[node name="CannonLeft3" parent="CannonsLeft" instance=ExtResource("8_omlbu")]
+position = Vector2(23, -18.5)
+rotation = 4.71239
+
+[node name="CannonsRight" type="Node2D" parent="."]
+
+[node name="CannonRight1" parent="CannonsRight" instance=ExtResource("8_omlbu")]
+position = Vector2(-27, 19)
+rotation = 1.5708
+
+[node name="CannonRight2" parent="CannonsRight" instance=ExtResource("8_omlbu")]
+position = Vector2(-2, 19)
+rotation = 1.5708
+
+[node name="CannonRight3" parent="CannonsRight" instance=ExtResource("8_omlbu")]
+position = Vector2(22, 19)
+rotation = 1.5708
+
+[node name="Sail" type="Sprite2D" parent="."]
+position = Vector2(-42, 7.9936e-15)
+rotation = -1.5708
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_b6kb7")
+offset = Vector2(0, 19)
+
+[node name="Nest" type="Sprite2D" parent="."]
+position = Vector2(-47, 0)
+rotation = -1.5708
+texture = ExtResource("5_4nqyr")
+
+[node name="Flag" type="Sprite2D" parent="."]
+position = Vector2(-58, 0)
+rotation = -1.5708
+texture = ExtResource("6_w0j5q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+rotation = -1.5708
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_86885")
