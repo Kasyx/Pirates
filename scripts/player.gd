@@ -9,10 +9,12 @@ const MAX_SPEED_LEVEL = 3
 const SPEED_PER_LEVEL = 3000
 const ROTATION_SPEED_PER_S = 25
 const ACCELERATION = SPEED_PER_LEVEL/3
+const MAX_CANNON_ROTATION_DEGREES = 10
 
 @onready var sail = $Sail
 @onready var cannons_left = $CannonsLeft
 @onready var cannons_right = $CannonsRight
+
 
 const CANNONBALL = preload("res://scenes/cannonball.tscn")
 
@@ -34,6 +36,8 @@ func _process(delta):
 		rotation_degrees -= ROTATION_SPEED_PER_S * delta
 		
 	sail.scale.y = 0.3 + speed_level*0.4
+	
+	rotate_cannons()
 	
 	if Input.is_action_just_pressed("fire"):
 		fire()
@@ -77,12 +81,10 @@ func calculate_new_speed(accelerationWithDelta):
 		
 
 func fire():
-	var mouse_pos = get_local_mouse_position()
-	
-	if mouse_pos.y <= 0:
-		fire_salvo(cannons_left.get_children())
-	else:
+	if is_mouse_on_right_side():
 		fire_salvo(cannons_right.get_children())
+	else:
+		fire_salvo(cannons_left.get_children())
 	
 
 func fire_salvo(cannons):
@@ -103,3 +105,19 @@ func receive_hit(dmg):
 		pass
 		#hull_sprite.texture = hull_sprite_stage_2.texture
 	
+func rotate_cannons():
+	var mouse_pos = get_local_mouse_position()
+	
+	var cannons = []
+	if is_mouse_on_right_side():
+		cannons = cannons_right.get_children()
+	else:
+		cannons = cannons_left.get_children()
+		
+	for cannon in cannons:
+		cannon.point_to(mouse_pos)
+	
+	
+func is_mouse_on_right_side() -> bool:
+	var mouse_pos = get_local_mouse_position()
+	return mouse_pos.y >= 0
